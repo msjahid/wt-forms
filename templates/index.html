@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var billObject = {
+    "Bill No. 1. Section between TПK1 - chamber 5/K1 - TПK2 (length 575m)": ["Earth Works", "Manholes and Chambers", "Installation of pipes", "Installation of a temporary passage through the channel"],
+    "Bill No. 2.  The area of crossing the airport territory (from 5/К1 up to 6а/К1 + 56) length 236 m": ["Earth works", "Manholes and Chambers", "Installation of pipes"],
+    "Bill No. 3. Section from 6a/Kl+56 to 14/K1 (arable land) length of section 830 m": ["Earth works", "Manholes and Chambers", "Installation of pipes"],
+    "Bill No. 4. Section from 14/K1 to 56/K1 (connection point for collector No. 15) length of section 3611 m": ["Earth works", "Manholes and Chambers", "Installation of pipes", "Restoration of the section for connection of collector No. 15 to the chamber 56/K1:"],
+    "Bill No 5.1. Section from 56/K1 to 66/K1 (length 1187 m)": ["Earth works", "Chambers", "Installation of pipes"],
+    "Bill No. 5.2. Section from 66/K1 up to 73/K1 (including the section of intersection with the collector DN = 1000)": ["Earth works", "Chambers", "Installation of pipes", "Intersection with collector DN = 1000"],
+    "Bill No. 5.3. Section from 73/K1 up to 94/K1 (differential/dropdown chamber). Length of the section 1754 m": ["Earth works", "Chambers", "Installation of pipes", "Construction of inverted siphon through the river \"Dushanbinka\""],
+    "Bill No. 6. Section from chamber 94/K1 up to TПK into the collector No. 10, length of the section 631m" : ["Earth works", "Chambers", "Installation of pipes"],
+    "Bill No7, General items": ['General items']
+}
+window.onload = function() {
+  var billSel = document.getElementById("bill");
+  var topicSel = document.getElementById("topic");
+  for (var x in billObject) {
+    billSel.options[billSel.options.length] = new Option(x, x);
+  }
+  billSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    topicSel.length = 1;
+    //display correct values
+    var y = billObject[this.value];
+    for (var i = 0; i < y.length; i++) {
+      topicSel.options[topicSel.options.length] = new Option(y[i], y[i]);
+    }
+  }
+}
+</script>
+</head>
+<body>
+
+<h1>Dushanbe Entry</h1>
+
+<form name="form1" id="form1" action="/action_page.php">
+Bill: <select name="bill" id="bill">
+    <option value="" selected="selected">Select Your Bill</option>
+  </select>
+  <br><br>
+Topics: <select name="topic" id="topic">
+    <option value="" selected="selected">Please select Bill first</option>
+  </select>
+  <br><br>
+</form>
+
+</body>
+<div class="container">
+ <div class="row">
+<form method="POST">
+{{ form.csrf_token}}
+<div class="form-group">
+<label for="box", name='materials_data'>Name of work including materials:</label>
+{{ form.Name_materials(class="form-control")}}
+</div>
+<div class="form-group">
+ <label for="box">Item Serial No:</label>
+ {{ form.No(class="form-control") }}
+</div>
+<div class="form-group">
+<label for="box">Units:</label>
+{{ form.Units(class="form-control")}}
+</div>
+<div class="form-group">
+<label for="box">Quantity:</label>
+{{ form.Quantity(class="form-control")}}
+</div>
+<div class="form-group">
+ <label for="box">Date:</label>
+ {{ form.Date(class="form-control")}}
+</div>
+<label for="box">Work Done:</label>
+{{ form.Work_Done(class="form-control")}}
+</div>
+</div>
+<input type="submit" class="btn btn-success" btn-lg>
+</form>
+</div>
+</html>
